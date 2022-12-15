@@ -1,23 +1,13 @@
 import {v1} from 'uuid';
 import {ResponseCompanyType, ResponseEmployeeType} from './index';
 
-const returnEmployeeObject = (index: number, arrSurname: string[], arrName: string[], arrJobTitle: string[]) => ({
-  id: v1(),
-  surname: arrSurname[index % arrSurname.length],
-  name: arrName[index % arrName.length],
-  jobTitle: arrJobTitle[index % arrJobTitle.length]
-})
-
+// CompaniesData
 export const companyId1 = v1()
 const companyId2 = v1()
 const companyId3 = v1()
 const companyId4 = v1()
 const companyId5 = v1()
 const companyId6 = v1()
-
-const arrSurname = ['Живаго', 'Грабчак', 'Дюма', 'Штольберг', 'Шапиро', 'Нетто']
-const arrName = ['Владимир', 'Александра', 'Николай', 'Екатерина', 'Константин', 'Елена', 'Дмитрий']
-const arrJobTitle = ['Frontend-разработчик', 'Backend-разработчик', 'Тестировщик', 'Тимлид', 'Гейм-дизайнер', 'QA-инженер', 'HR-менеджер', 'Менеджер проекта']
 
 export const companiesData: ResponseCompanyType[] = [
   {
@@ -58,6 +48,18 @@ export const companiesData: ResponseCompanyType[] = [
   },
 ]
 
+// EmployeesData
+const returnEmployeeObject = (index: number, arrSurname: string[], arrName: string[], arrJobTitle: string[]) => ({
+  id: v1(),
+  surname: arrSurname[index % arrSurname.length],
+  name: arrName[index % arrName.length],
+  jobTitle: arrJobTitle[index % arrJobTitle.length]
+})
+
+const arrSurname = ['Живаго', 'Грабчак', 'Дюма', 'Штольберг', 'Шапиро', 'Нетто']
+const arrName = ['Владимир', 'Александра', 'Николай', 'Екатерина', 'Константин', 'Елена', 'Дмитрий']
+const arrJobTitle = ['Frontend-разработчик', 'Backend-разработчик', 'Тестировщик', 'Тимлид', 'Гейм-дизайнер', 'QA-инженер', 'HR-менеджер', 'Менеджер проекта']
+
 export const employeesData: { [companyId: string]: ResponseEmployeeType[] } = {
   [companyId1]: Array(companiesData[0].qtyEmployees).fill(null).map((_, index) => ({
     ...returnEmployeeObject(index, arrSurname, arrName, arrJobTitle)
@@ -77,4 +79,13 @@ export const employeesData: { [companyId: string]: ResponseEmployeeType[] } = {
   [companyId6]: Array(companiesData[5].qtyEmployees).fill(null).map((_, index) => ({
     ...returnEmployeeObject(index, arrSurname, arrName, arrJobTitle)
   }))
+}
+
+// Error response
+export type AxiosError<T> = { data: T }
+
+export const errorResponse = {
+  data: {
+    message: 'Server error, please try again later'
+  }
 }

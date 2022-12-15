@@ -1,19 +1,21 @@
 import React from 'react';
 import styles from './App.module.scss'
-import {companiesAPI, employeesAPI} from '../api';
-import {companyId1} from '../api/data';
+import {useAppDispatch, useAppSelector} from '../common/hooks';
+import { getCompanies } from '../features/CompaniesList/companiesList-actions';
 
 export const App = () => {
 
-  const onClickHandler = async () => {
-    // const qwe = await companiesAPI.getCompanies()
-    const qwe = await employeesAPI.getEmployees({companyId: companyId1})
-    console.log(qwe)
+  const dispatch = useAppDispatch()
+
+  const companies = useAppSelector(state => state.companies.companies)
+
+  const onClickHandler = () => {
+    dispatch(getCompanies())
   }
 
   return (
     <div className={styles.app}>
-      <button onClick={onClickHandler}>qwe</button>
+      <button onClick={onClickHandler}>aasdqwe</button>
     </div>
   );
 }
