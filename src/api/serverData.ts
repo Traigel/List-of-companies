@@ -2,7 +2,7 @@ import {v1} from 'uuid';
 import {ResponseCompanyType, ResponseEmployeeType} from './index';
 
 // CompaniesData
-export const companyId1 = v1()
+const companyId1 = v1()
 const companyId2 = v1()
 const companyId3 = v1()
 const companyId4 = v1()

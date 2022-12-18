@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getCompanies} from './companiesList-actions';
+import {getCompanies, setCompanyChecked} from './companiesList-actions';
 import {ResponseCompanyType} from '../../api';
 
 const initialState = {
@@ -15,6 +15,9 @@ const slice = createSlice({
     builder
       .addCase(getCompanies.fulfilled, (state, action) => {
         state.companies = action.payload.map(el => ({...el, checked: false}))
+      })
+      .addCase(setCompanyChecked, (state, action) => {
+        state.companies = state.companies.map(el => el.id === action.payload.companyId ? {...el, checked: action.payload.checked} : el )
       })
   }
 })

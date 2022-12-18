@@ -3,6 +3,7 @@ import {employeesAPI, ResponseEmployeeType} from '../../api';
 import { setAppStatus } from '../../app/app-reducer';
 import { handleServerNetworkError } from '../../common/utils';
 
+// Thunks
 export const getEmployees = createAsyncThunk<{ companyId: string, employees: ResponseEmployeeType[] }, { companyId: string }>(
   'employees/getEmployees', async (param, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus({status: 'loading'}))

@@ -1,10 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {ResponseEmployeeType} from '../../api';
 import {getEmployees} from './employeesList-actions';
-import {getCompanies} from '../CompaniesList/companiesList-actions';
+import {setCompanyChecked} from '../CompaniesList/companiesList-actions';
 
 const initialState = {
-  allEmployees: {} as AllEmployeesType,
+  employees: [] as EmployeeType[],
+  allChecked: false,
+  activeParentsId: [] as string[],
 }
 
 const slice = createSlice({
@@ -13,19 +15,17 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getCompanies.fulfilled, (state, action) => {
-        action.payload.forEach((el => {
-          state.allEmployees[el.id] = {
-            employees: [],
-            allChecked: false
-          }
-        }))
-      })
       .addCase(getEmployees.fulfilled, (state, action) => {
-        state.allEmployees[action.payload.companyId].employees = action.payload.employees.map(el => ({
+        state.employees = [...state.employees, ...action.payload.employees.map(el => ({
           ...el,
+          parentId: action.payload.companyId,
           checked: false
-        }))
+        }))]
+      })
+      .addCase(setCompanyChecked, (state, action) => {
+        state.activeParentsId = action.payload.checked
+          ? [...state.activeParentsId, action.payload.companyId]
+          : state.activeParentsId.filter(el => el !== action.payload.companyId)
       })
   }
 })
@@ -33,15 +33,7 @@ const slice = createSlice({
 export const employeesReducer = slice.reducer
 
 // Types
-export type AllEmployeesType = {
-  [companyId: string]: EmployeesType
-}
-
-export type EmployeesType = {
-  employees: EmployeeType[]
-  allChecked: boolean
-}
-
 export type EmployeeType = ResponseEmployeeType & {
+  parentId: string
   checked: boolean
 }
