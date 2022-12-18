@@ -8,9 +8,10 @@ export const companiesAPI = {
       setTimeout(() => resolve(companiesData), randomRequestTime(2000));
     });
   },
-  serverRequest: async ({companyId}: { companyId: string }) => {
-    return await new Promise<string>((resolve) => {
-      setTimeout(() => resolve('Status Code: 200'), randomRequestTime(2000));
+  updateCompany: async (param: RequestUpdateCompanyType) => {
+    return await new Promise<ResponseCompanyType>((resolve) => {
+      const company = companiesData.find(el => el.id === param.id) as ResponseCompanyType
+      setTimeout(() => resolve({...company, ...param}), randomRequestTime(2000));
     });
   },
   errorResponse: async () => {
@@ -26,9 +27,10 @@ export const employeesAPI = {
       setTimeout(() => resolve(employeesData[companyId]), randomRequestTime(2000));
     });
   },
-  serverRequest: async ({companyId, employeeId}: RequestEmployeeParamsType) => {
-    return await new Promise<string>((resolve) => {
-      setTimeout(() => resolve('Status Code: 200'), randomRequestTime(2000));
+  updateEmployee: async (param: RequestUpdateEmployeeType) => {
+    const employee = employeesData[param.companyId].find(el => el.id === param.id) as ResponseEmployeeType
+    return await new Promise<ResponseEmployeeType>((resolve) => {
+      setTimeout(() => resolve({...employee, ...param}), randomRequestTime(2000));
     });
   }
 }
@@ -48,7 +50,17 @@ export type ResponseEmployeeType = {
   jobTitle: string
 }
 
-export type RequestEmployeeParamsType = {
+export type RequestUpdateCompanyType = {
+  id: string
+  title?: string
+  qtyEmployees?: number
+  address?: string
+}
+
+export type RequestUpdateEmployeeType = {
   companyId: string
-  employeeId: string
+  id: string
+  surname?: string
+  name?: string
+  jobTitle?: string
 }

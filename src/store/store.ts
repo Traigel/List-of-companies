@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import { companiesReducer } from "../features/CompaniesList/companiesList-reducer";
-import {employeesReducer} from '../features/EmployeesList/EmployeesList-reducer';
+import {employeesReducer} from '../features/EmployeesList/employeesList-reducer';
 import {appReducer} from '../app/app-reducer';
 
 const rootReducer = combineReducers({

@@ -10,5 +10,9 @@
     background-color: cornflowerblue;
     max-width: 500px;
     height: 80%;
+
+    .tableBody {
+      overflow: hidden;
+    }
   }
 }
