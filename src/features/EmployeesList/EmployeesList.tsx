@@ -1,17 +1,18 @@
 import React from 'react';
 import styles from './EmployeesList.module.scss';
 import {useAppDispatch, useAppSelector} from '../../common/hooks';
-import {TableRow} from '../../common/components/TableRow/TableRow';
-import {removeEmployees, setEmployeeAllChecked, setEmployeesChecked, updateEmployees} from './employeesList-actions';
+import {removeEmployees, setEmployeeAllChecked} from './employeesList-actions';
 import {TableHeaderRow} from '../../common/components/TableHeaderRow/TableHeaderRow';
 import {CreateEmployee} from './CreateEmployee/CreateEmployee';
+import {TableBodyEmployees} from './TableBodyEmployees/TableBodyEmployees';
+import {SvgSelector} from '../../common/components/SvgSelector';
+import {Button} from '../../common/components/Button/Button';
 
 export const EmployeesList = () => {
   console.log('EmployeesList')
 
   const dispatch = useAppDispatch()
-  const activeCompanyId = useAppSelector(state => state.companies.activeCompanyId)
-  const employees = useAppSelector(state => state.employees.employees)
+  const activeEmployeesId = useAppSelector(state => state.employees.activeEmployeesId)
   const allChecked = useAppSelector(state => state.employees.allChecked)
 
   const onChangeAllEmployeesHandler = (checked: boolean) => {
@@ -20,14 +21,10 @@ export const EmployeesList = () => {
 
   const onClickRemoveHandler = () => dispatch(removeEmployees())
 
-  const filterEmployees = employees.filter(el => activeCompanyId.includes(el.parentId))
 
   return <div className={styles.employeesList}>
-
     <CreateEmployee/>
-
-    <table>
-      <thead>
+    <div className={styles.table}>
       <TableHeaderRow
         checked={allChecked}
         onChange={onChangeAllEmployeesHandler}
@@ -36,55 +33,10 @@ export const EmployeesList = () => {
         thirdTableCell={'Имя'}
         fourthTableCell={'Должность'}
       />
-      </thead>
-    </table>
-
-    <table className={styles.table}>
-
-      <tbody className={styles.tableBody}>
-      {filterEmployees.map(el => {
-
-        const onChangeHandler = (checked: boolean) => {
-          dispatch(setEmployeesChecked({employeeId: el.id, checked}))
-        }
-
-        const setNameHandler = (value: string) => dispatch(updateEmployees({
-          parentId: el.parentId,
-          id: el.id,
-          name: value,
-        }))
-
-        const setSurnameHandler = (value: string) => dispatch(updateEmployees({
-          parentId: el.parentId,
-          id: el.id,
-          surname: value,
-        }))
-
-        const setJobTitleHandler = (value: string) => dispatch(updateEmployees({
-          parentId: el.parentId,
-          id: el.id,
-          jobTitle: value
-        }))
-
-
-        return <TableRow
-          key={el.id}
-          checked={el.checked}
-          onChange={onChangeHandler}
-          secondTableCell={el.name}
-          setSecondTableCell={setNameHandler}
-          thirdTableCell={el.surname}
-          setThirdTableCell={setSurnameHandler}
-          fourthTableCell={el.jobTitle}
-          setFourthTableCell={setJobTitleHandler}
-        />
-
-      })}
-      </tbody>
-
-    </table>
-
-    <button onClick={onClickRemoveHandler}>Удалить сотрудников</button>
-
+      <TableBodyEmployees/>
+    </div>
+    <Button disabled={!activeEmployeesId.length} typeStyle={'error'} onClick={onClickRemoveHandler}>
+      <SvgSelector type={'delete'}/> Удалить сотрудников
+    </Button>
   </div>
 }

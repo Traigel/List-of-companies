@@ -1,0 +1,14 @@
+@import '../../../common/styles/Variablies';
+
+.createEmployee {
+  @include tableBox($boxBg, $bgSecondColor);
+  width: 70%;
+  height: 15%;
+  justify-content: space-around;
+
+  .inputBox {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+}

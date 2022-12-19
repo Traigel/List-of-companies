@@ -1,5 +1,29 @@
+@import "../../styles/Variablies";
+
 .tableRow {
-  background: antiquewhite;
-  border: 1px solid red;
-  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 46px;
+  border-bottom: 1px solid $appBg;
+
+  .checkboxTableCell {
+    @include tableCellSize(10%);
+  }
+
+  .secondTableCell {
+    @include tableCellSize(40%);
+  }
+
+  .thirdTableCell {
+    @include tableCellSize(10%);
+  }
+
+  .fourthTableCell {
+    @include tableCellSize(38%);
+  }
+}
+
+.active {
+  background-color: $bgSecondColor;
 }

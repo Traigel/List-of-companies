@@ -1,0 +1,5 @@
+@import "../../../common/styles/Variablies";
+
+.tableBody {
+  @include tableBody();
+}

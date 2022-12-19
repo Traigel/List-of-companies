@@ -1,25 +1,11 @@
+@import "../../common/styles/Variablies";
+
 .employeesList {
-  width: 50%;
-  height: 100%;
-  background-color: saddlebrown;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include tableList();
 
   .table {
-    background-color: cornflowerblue;
-    max-width: 500px;
-    height: 80%;
-
-
-    .tableBody {
-      width: 100%;
-      height: 100%;
-      display: block;
-      overflow: auto ;
-    }
+    @include tableBox($boxBg, $bgSecondColor);
+    width: 70%;
+    height: 70%;
   }
-
-
 }

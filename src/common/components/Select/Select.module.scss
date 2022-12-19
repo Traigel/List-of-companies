@@ -1,0 +1,6 @@
+@import '../../styles/Variablies';
+
+.select {
+  @include input();
+  width: 241px;
+}

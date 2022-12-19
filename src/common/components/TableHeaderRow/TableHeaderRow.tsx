@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import styles from './TableRow.module.scss';
+import styles from './TableHeaderRow.module.scss';
 
 type TableRowPropsType = {
   checked: boolean
@@ -12,20 +12,24 @@ type TableRowPropsType = {
 }
 
 export const TableHeaderRow = ({
-                           checked,
-                           onChange,
-                           secondTableCell,
-                           thirdTableCell,
-                           fourthTableCell,
-                           checkedLabel
-                         }: TableRowPropsType) => {
+                                 checked,
+                                 onChange,
+                                 secondTableCell,
+                                 thirdTableCell,
+                                 fourthTableCell,
+                                 checkedLabel
+                               }: TableRowPropsType) => {
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => onChange(e.currentTarget.checked)
 
-  return <tr>
-    <td><label><input type={'checkbox'} checked={checked} onChange={onChangeHandler}/>{checkedLabel}</label></td>
-    <td>{secondTableCell} </td>
-    <td>{thirdTableCell}</td>
-    <td>{fourthTableCell}</td>
-  </tr>
+  return <div className={styles.tableHeaderRow}>
+    <div className={styles.checkboxTableCell}>
+      <label>
+        <input type={'checkbox'} checked={checked} onChange={onChangeHandler}/>{checkedLabel}
+      </label>
+    </div>
+    <div className={styles.secondTableCell}>{secondTableCell} </div>
+    <div className={styles.thirdTableCell}>{thirdTableCell}</div>
+    <div className={styles.fourthTableCell}>{fourthTableCell}</div>
+  </div>
 }

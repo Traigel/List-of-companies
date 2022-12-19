@@ -4,7 +4,7 @@ import {setAppError, setAppStatus } from "../../app/app-reducer";
 
 export const handleServerNetworkError = (e: any, dispatch: Dispatch) => {
   const err = e as AxiosError<ErrorType>
-  dispatch(setAppError({error: err.data.message}))
+  dispatch(setAppError({message: err.data.message}))
   dispatch(setAppStatus({status: 'failed'}))
 }
 

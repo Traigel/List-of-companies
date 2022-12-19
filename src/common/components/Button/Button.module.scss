@@ -1,0 +1,54 @@
+@import '../../styles/Variablies';
+
+.button {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  color: $boxBg;
+  font-size: 18px;
+  line-height: 22px;
+  width: 241px;
+  padding: 5px 0;
+  box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+
+  &:hover {
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+  }
+}
+
+.active {
+  background-color: $bgColor;
+
+  &:hover {
+    background-color: lighten($bgColor, 6.25%)
+  }
+
+  &:active {
+    background-color: $textSecondColor;
+  }
+}
+
+.error {
+  background-color: $error;
+
+  &:hover {
+    background-color: lighten($error, 6.25%)
+  }
+
+  &:active {
+    background-color: $textSecondColor;
+  }
+}
+
+.disabled {
+  background-color: $disabled;
+  cursor: not-allowed;
+  &:hover {
+    background-color: $disabled;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+  }
+}

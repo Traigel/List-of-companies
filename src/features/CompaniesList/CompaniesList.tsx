@@ -1,22 +1,18 @@
 import React, {useEffect} from 'react';
 import styles from './CompaniesList.module.scss';
 import {useAppDispatch, useAppSelector} from '../../common/hooks';
-import {
-  getCompanies, removeCompanies,
-  setCompanyAllChecked,
-  setCompanyChecked,
-  updateCompany
-} from './companiesList-actions';
-import {TableRow} from '../../common/components/TableRow/TableRow';
+import {getCompanies, removeCompanies, setCompanyAllChecked} from './companiesList-actions';
 import {TableHeaderRow} from '../../common/components/TableHeaderRow/TableHeaderRow';
 import {CreateCompany} from './CreateCompany/CreateCompany';
+import {TableBodyCompanies} from './TableBodyCompanies/TableBodyCompanies';
+import {Button} from '../../common/components/Button/Button';
+import {SvgSelector} from '../../common/components/SvgSelector';
 
 export const CompaniesList = () => {
-  console.log('CompaniesList')
 
   const dispatch = useAppDispatch()
-  const companies = useAppSelector(state => state.companies.companies)
   const allChecked = useAppSelector(state => state.companies.allChecked)
+  const activeCompanyId = useAppSelector(state => state.companies.activeCompanyId)
 
   useEffect(() => {
     dispatch(getCompanies())
@@ -29,11 +25,8 @@ export const CompaniesList = () => {
   const onClickRemoveHandler = () => dispatch(removeCompanies())
 
   return <div className={styles.companiesList}>
-
     <CreateCompany/>
-
-    <table className={styles.companyBox}>
-      <thead>
+    <div className={styles.table}>
       <TableHeaderRow
         checked={allChecked}
         onChange={onChangeAllCompaniesHandler}
@@ -42,36 +35,10 @@ export const CompaniesList = () => {
         thirdTableCell={'Кол-во сотрудников'}
         fourthTableCell={'Адрес'}
       />
-      </thead>
-
-      <tbody className={styles.tableBody}>
-      {companies.map(el => {
-
-        const onChangeCompanyHandler = (checked: boolean) => {
-          dispatch(setCompanyChecked({companyId: el.id, checked}))
-        }
-
-        const setTitleHandler = (value: string) => dispatch(updateCompany({id: el.id, title: value}))
-
-        const setAddressHandler = (value: string) => dispatch(updateCompany({id: el.id, address: value}))
-
-        return <TableRow
-          key={el.id}
-          checked={el.checked}
-          onChange={onChangeCompanyHandler}
-          secondTableCell={el.title}
-          setSecondTableCell={setTitleHandler}
-          thirdTableCell={el.qtyEmployees}
-          fourthTableCell={el.address}
-          setFourthTableCell={setAddressHandler}
-        />
-      })}
-      </tbody>
-
-
-    </table>
-
-    <button onClick={onClickRemoveHandler}>Удалить компании</button>
-
+      <TableBodyCompanies/>
+    </div>
+    <Button disabled={!activeCompanyId.length} typeStyle={'error'} onClick={onClickRemoveHandler}>
+      <SvgSelector type={'delete'}/> Удалить компании
+    </Button>
   </div>
 }

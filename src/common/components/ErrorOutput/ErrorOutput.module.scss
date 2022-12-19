@@ -1,0 +1,28 @@
+@import '../../styles/Variablies';
+
+.ErrorOutputComponent {
+
+  .error {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: inline-block;
+    background-color: $error;
+    border-radius: 20px 0 20px;
+    padding: 10px 30px 10px 20px;
+
+    .h3 {
+      color: $textSecondColor;
+      font-size: 20px;
+      line-height: 30px;
+    }
+
+    .cross {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      line-height: 15px;
+    }
+  }
+}

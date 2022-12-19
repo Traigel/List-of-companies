@@ -1,4 +1,8 @@
 import {ChangeEvent, useState, KeyboardEvent} from "react"
+import {InputText} from '../InputText/InputText';
+import styles from './EditableTableCell.module.scss';
+import {useAppDispatch} from '../../hooks';
+import {setAppError} from '../../../app/app-reducer';
 
 type EditableTableCellPropsType = {
   title: string
@@ -7,6 +11,8 @@ type EditableTableCellPropsType = {
 }
 export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCellPropsType) => {
 
+  const dispatch = useAppDispatch()
+
   const [visibility, setVisibility] = useState<boolean>(false)
   const [titleValue, setTitleValue] = useState<string>(title)
   const [error, setError] = useState<boolean>(false)
@@ -14,8 +20,9 @@ export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCell
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.value !== ' ') {
       setTitleValue(e.currentTarget.value)
-      setError(false)
-    } else setError(true)
+    } else {
+      dispatch(setAppError({message: 'Поле не может начинаться с пробела'}))
+    }
   }
 
   const offVisibilityHandler = () => {
@@ -26,7 +33,9 @@ export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCell
       if (titleReplace !== '') {
         setTitle(titleValue)
         setVisibility(false)
-      } else setError(true)
+      } else {
+        dispatch(setAppError({message: 'Поле не может быть пустым'}))
+      }
     }
   }
 
@@ -40,10 +49,11 @@ export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCell
     }
   }
 
-  return <td>
+  return <div>
     {visibility
       ?
-      <input
+      <InputText
+        className={styles.input}
         value={titleValue}
         onChange={onChangeHandler}
         onKeyUp={onKeyUpHandler}
@@ -54,5 +64,5 @@ export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCell
       <span onDoubleClick={onVisibilityHandler}>{title}</span>
     }
 
-  </td>
+  </div>
 }

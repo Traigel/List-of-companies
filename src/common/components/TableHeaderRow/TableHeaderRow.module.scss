@@ -1,0 +1,28 @@
+@import "../../styles/Variablies";
+
+.tableHeaderRow {
+  @include tableBox($bgColor, $bgColor);
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  color: $boxBg;
+
+  .checkboxTableCell {
+    @include tableCellSize(15%);
+  }
+
+  .secondTableCell {
+    @include tableCellSize(35%);
+  }
+
+  .thirdTableCell {
+    @include tableCellSize(10%);
+  }
+
+  .fourthTableCell {
+    @include tableCellSize(40%);
+  }
+
+}

@@ -1,18 +1,11 @@
+@import "../../common/styles/Variablies";
+
 .companiesList {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: cadetblue;
+  @include tableList();
 
-  .companyBox {
-    background-color: cornflowerblue;
-    max-width: 500px;
-    height: 80%;
-
-    .tableBody {
-      overflow: hidden;
-    }
+  .table {
+    @include tableBox($boxBg, $bgSecondColor);
+    width: 70%;
+    height: 75%;
   }
 }
