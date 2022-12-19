@@ -1,9 +1,15 @@
 import React, {useEffect} from 'react';
 import styles from './CompaniesList.module.scss';
 import {useAppDispatch, useAppSelector} from '../../common/hooks';
-import {getCompanies, setCompanyAllChecked, setCompanyChecked, updateCompany} from './companiesList-actions';
+import {
+  getCompanies, removeCompanies,
+  setCompanyAllChecked,
+  setCompanyChecked,
+  updateCompany
+} from './companiesList-actions';
 import {TableRow} from '../../common/components/TableRow/TableRow';
 import {TableHeaderRow} from '../../common/components/TableHeaderRow/TableHeaderRow';
+import {CreateCompany} from './CreateCompany/CreateCompany';
 
 export const CompaniesList = () => {
   console.log('CompaniesList')
@@ -20,7 +26,12 @@ export const CompaniesList = () => {
     dispatch(setCompanyAllChecked({checked}))
   }
 
+  const onClickRemoveHandler = () => dispatch(removeCompanies())
+
   return <div className={styles.companiesList}>
+
+    <CreateCompany/>
+
     <table className={styles.companyBox}>
       <thead>
       <TableHeaderRow
@@ -60,6 +71,7 @@ export const CompaniesList = () => {
 
     </table>
 
+    <button onClick={onClickRemoveHandler}>Удалить компании</button>
 
   </div>
 }

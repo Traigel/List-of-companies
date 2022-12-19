@@ -1,9 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {ResponseEmployeeType} from '../../api';
-import {getEmployees, setEmployeeAllChecked, setEmployeesChecked, updateEmployees} from './employeesList-actions';
+import {
+  createEmployee,
+  getEmployees, removeEmployees,
+  setEmployeeAllChecked,
+  setEmployeesChecked,
+  updateEmployees
+} from './employeesList-actions';
+import {removeCompanies} from '../CompaniesList/companiesList-actions';
 
 const initialState = {
   employees: [] as EmployeeType[],
+  activeEmployeesId: [] as string[],
   allChecked: false,
 }
 
@@ -25,16 +33,31 @@ const slice = createSlice({
           ...el,
           checked: action.payload.checked
         } : el)
+        state.activeEmployeesId = action.payload.checked
+          ? [...state.activeEmployeesId, action.payload.employeeId]
+          : state.activeEmployeesId.filter(el => el !== action.payload.employeeId)
       })
       .addCase(setEmployeeAllChecked, (state, action) => {
         state.employees = state.employees.map(el => ({...el, checked: action.payload.checked}))
         state.allChecked = action.payload.checked
+        state.activeEmployeesId = action.payload.checked
+          ? state.employees.reduce((acc: string[], cur: EmployeeType) => [...acc, cur.id], [])
+          : []
       })
       .addCase(updateEmployees.fulfilled, (state, action) => {
-        state.employees = state.employees.map(el => el.parentId === action.payload.companyId && el.id === action.payload.id
+        state.employees = state.employees.map(el => el.parentId === action.payload.parentId && el.id === action.payload.id
           ? {...el, ...action.payload}
           : el
         )
+      })
+      .addCase(createEmployee.fulfilled, (state, action) => {
+        state.employees.unshift({...action.payload, checked: false})
+      })
+      .addCase(removeCompanies.fulfilled, (state, action) => {
+        state.employees = state.employees.filter(el => !action.payload.includes(el.parentId))
+      })
+      .addCase(removeEmployees.fulfilled, (state, action) => {
+        state.employees = state.employees.filter(el => !(action.payload.companiesId.includes(el.parentId) && action.payload.employeesId.includes(el.id)))
       })
   }
 })

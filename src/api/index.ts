@@ -1,4 +1,5 @@
 import {companiesData, employeesData, errorResponse} from './serverData';
+import {v1} from 'uuid';
 
 const randomRequestTime = (maxMs: number) => Math.random() * maxMs
 
@@ -12,6 +13,16 @@ export const companiesAPI = {
     return await new Promise<ResponseCompanyType>((resolve) => {
       const company = companiesData.find(el => el.id === param.id) as ResponseCompanyType
       setTimeout(() => resolve({...company, ...param}), randomRequestTime(2000));
+    });
+  },
+  createCompany: async (param: RequestCreateCompanyType) => {
+    return await new Promise<ResponseCompanyType>((resolve) => {
+      setTimeout(() => resolve({id: v1(), qtyEmployees: 0, ...param}), randomRequestTime(2000));
+    });
+  },
+  removeCompanies: async ({companiesId}: {companiesId: string[]}) => {
+    return await new Promise<{serverMessage: string}>((resolve) => {
+      setTimeout(() => resolve({ serverMessage: 'Companies deleted successfully'}), randomRequestTime(2000));
     });
   },
   errorResponse: async () => {
@@ -28,9 +39,19 @@ export const employeesAPI = {
     });
   },
   updateEmployee: async (param: RequestUpdateEmployeeType) => {
-    const employee = employeesData[param.companyId].find(el => el.id === param.id) as ResponseEmployeeType
-    return await new Promise<ResponseEmployeeType>((resolve) => {
+    const employee = employeesData[param.parentId].find(el => el.id === param.id) as ResponseEmployeeType
+    return await new Promise<ResponseCompanyEmployeeType>((resolve) => {
       setTimeout(() => resolve({...employee, ...param}), randomRequestTime(2000));
+    });
+  },
+  createEmployee: async (param: RequestCreateEmployeeType) => {
+    return await new Promise<ResponseCompanyEmployeeType>((resolve) => {
+      setTimeout(() => resolve({id: v1(), ...param }), randomRequestTime(2000));
+    });
+  },
+  removeEmployees: async ({employeesId}: {employeesId: string[]}) => {
+    return await new Promise<{serverMessage: string}>((resolve) => {
+      setTimeout(() => resolve({ serverMessage: 'Employees deleted successfully'}), randomRequestTime(2000));
     });
   }
 }
@@ -50,6 +71,8 @@ export type ResponseEmployeeType = {
   jobTitle: string
 }
 
+export type ResponseCompanyEmployeeType = ResponseEmployeeType & {parentId: string}
+
 export type RequestUpdateCompanyType = {
   id: string
   title?: string
@@ -58,9 +81,21 @@ export type RequestUpdateCompanyType = {
 }
 
 export type RequestUpdateEmployeeType = {
-  companyId: string
+  parentId: string
   id: string
   surname?: string
   name?: string
   jobTitle?: string
+}
+
+export type RequestCreateCompanyType = {
+  title: string
+  address: string
+}
+
+export type RequestCreateEmployeeType = {
+  parentId: string
+  surname: string
+  name: string
+  jobTitle: string
 }

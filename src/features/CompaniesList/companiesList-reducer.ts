@@ -1,6 +1,14 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getCompanies, setCompanyAllChecked, setCompanyChecked, updateCompany} from './companiesList-actions';
+import {
+  createCompany,
+  getCompanies,
+  removeCompanies,
+  setCompanyAllChecked,
+  setCompanyChecked,
+  updateCompany
+} from './companiesList-actions';
 import {ResponseCompanyType} from '../../api';
+import {createEmployee, removeEmployees} from '../EmployeesList/employeesList-actions';
 
 const initialState = {
   companies: [] as CompaniesType[],
@@ -35,6 +43,23 @@ const slice = createSlice({
       })
       .addCase(updateCompany.fulfilled, (state, action) => {
         state.companies = state.companies.map(el => el.id === action.payload.id ? {...el, ...action.payload} : el)
+      })
+      .addCase(createCompany.fulfilled, (state, action) => {
+        state.companies.unshift({...action.payload, checked: false})
+      })
+      .addCase(createEmployee.fulfilled, (state, action) => {
+        state.companies = state.companies.map(el => el.id === action.payload.parentId
+          ? {...el, qtyEmployees: el.qtyEmployees + 1}
+          : el)
+      })
+      .addCase(removeCompanies.fulfilled, (state, action) => {
+        state.companies = state.companies.filter(el => !action.payload.includes(el.id))
+      })
+      .addCase(removeEmployees.fulfilled, (state, action) => {
+        state.companies = state.companies.map(el => action.payload.numberRemote[el.id] ? {
+          ...el,
+          qtyEmployees: el.qtyEmployees - action.payload.numberRemote[el.id]
+        } : el)
       })
   }
 })

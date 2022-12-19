@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './EmployeesList.module.scss';
 import {useAppDispatch, useAppSelector} from '../../common/hooks';
 import {TableRow} from '../../common/components/TableRow/TableRow';
-import {setEmployeeAllChecked, setEmployeesChecked, updateEmployees} from './employeesList-actions';
+import {removeEmployees, setEmployeeAllChecked, setEmployeesChecked, updateEmployees} from './employeesList-actions';
 import {TableHeaderRow} from '../../common/components/TableHeaderRow/TableHeaderRow';
+import {CreateEmployee} from './CreateEmployee/CreateEmployee';
 
 export const EmployeesList = () => {
   console.log('EmployeesList')
@@ -17,9 +18,13 @@ export const EmployeesList = () => {
     dispatch(setEmployeeAllChecked({checked}))
   }
 
+  const onClickRemoveHandler = () => dispatch(removeEmployees())
+
   const filterEmployees = employees.filter(el => activeCompanyId.includes(el.parentId))
 
   return <div className={styles.employeesList}>
+
+    <CreateEmployee/>
 
     <table>
       <thead>
@@ -44,19 +49,19 @@ export const EmployeesList = () => {
         }
 
         const setNameHandler = (value: string) => dispatch(updateEmployees({
-          companyId: el.parentId,
+          parentId: el.parentId,
           id: el.id,
           name: value,
         }))
 
         const setSurnameHandler = (value: string) => dispatch(updateEmployees({
-          companyId: el.parentId,
+          parentId: el.parentId,
           id: el.id,
           surname: value,
         }))
 
         const setJobTitleHandler = (value: string) => dispatch(updateEmployees({
-          companyId: el.parentId,
+          parentId: el.parentId,
           id: el.id,
           jobTitle: value
         }))
@@ -78,6 +83,8 @@ export const EmployeesList = () => {
       </tbody>
 
     </table>
+
+    <button onClick={onClickRemoveHandler}>Удалить сотрудников</button>
 
   </div>
 }
