@@ -30,4 +30,6 @@ export const appReducer = slice.reducer
 export const {setAppStatus, setAppError} = slice.actions
 
 // Types
+export type InitialAppStateType = typeof initialState
+
 export type RequestStatusType = 'idle' | 'loading' | 'failed'

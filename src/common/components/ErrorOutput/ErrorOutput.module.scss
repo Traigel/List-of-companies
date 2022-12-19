@@ -10,9 +10,10 @@
     background-color: $error;
     border-radius: 20px 0 20px;
     padding: 10px 30px 10px 20px;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
 
     .h3 {
-      color: $textSecondColor;
+      color: $boxBg;
       font-size: 20px;
       line-height: 30px;
     }

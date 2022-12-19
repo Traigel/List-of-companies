@@ -4,7 +4,7 @@ import {CompaniesList} from '../features/CompaniesList/CompaniesList';
 import {EmployeesList} from '../features/EmployeesList/EmployeesList';
 import {useAppSelector} from '../common/hooks';
 import {LinearProgress} from '../common/components/LinearProgress/LinearProgress';
-import { Preloader } from '../common/components/Preloader/Preloader';
+import {Preloader} from '../common/components/Preloader/Preloader';
 import {ErrorOutput} from '../common/components/ErrorOutput/ErrorOutput';
 
 export const App = () => {

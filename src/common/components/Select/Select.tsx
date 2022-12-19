@@ -1,12 +1,12 @@
 import React, {DetailedHTMLProps, SelectHTMLAttributes} from 'react'
 import styles from './Select.module.scss'
-import {CompaniesType} from '../../../features/CompaniesList/companiesList-reducer'
+import {CompanyType} from '../../../features/CompaniesList/companiesList-reducer'
 
 type DefaultSelectPropsType = DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
 
 type SelectPropsType = DefaultSelectPropsType & {
   title: string
-  options: CompaniesType[]
+  options: CompanyType[]
   className?: string
 }
 

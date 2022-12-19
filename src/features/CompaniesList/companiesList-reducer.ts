@@ -11,7 +11,7 @@ import {ResponseCompanyType} from '../../api';
 import {createEmployee, removeEmployees} from '../EmployeesList/employeesList-actions';
 
 const initialState = {
-  companies: [] as CompaniesType[],
+  companies: [] as CompanyType[],
   activeCompanyId: [] as string[],
   allChecked: false
 }
@@ -38,7 +38,7 @@ const slice = createSlice({
         state.companies = state.companies.map(el => ({...el, checked: action.payload.checked}))
         state.allChecked = action.payload.checked
         state.activeCompanyId = action.payload.checked
-          ? state.companies.reduce((acc: string[], cur: CompaniesType) => [...acc, cur.id], [])
+          ? state.companies.reduce((acc: string[], cur: CompanyType) => [...acc, cur.id], [])
           : []
       })
       .addCase(updateCompany.fulfilled, (state, action) => {
@@ -67,6 +67,8 @@ const slice = createSlice({
 export const companiesReducer = slice.reducer
 
 // Types
-export type CompaniesType = ResponseCompanyType & {
+export type InitialCompaniesStateType = typeof initialState
+
+export type CompanyType = ResponseCompanyType & {
   checked: boolean
 }
