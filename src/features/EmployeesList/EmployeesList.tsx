@@ -9,14 +9,14 @@ import {SvgSelector} from '../../common/components/SvgSelector';
 import {Button} from '../../common/components/Button/Button';
 
 export const EmployeesList = () => {
-  console.log('EmployeesList')
 
   const dispatch = useAppDispatch()
   const activeEmployeesId = useAppSelector(state => state.employees.activeEmployeesId)
+  const activeCompanyId = useAppSelector(state => state.companies.activeCompanyId)
   const allChecked = useAppSelector(state => state.employees.allChecked)
 
   const onChangeAllEmployeesHandler = (checked: boolean) => {
-    dispatch(setEmployeeAllChecked({checked}))
+    dispatch(setEmployeeAllChecked({checked, activeCompanyId}))
   }
 
   const onClickRemoveHandler = () => dispatch(removeEmployees())

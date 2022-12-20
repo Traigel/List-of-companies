@@ -1,6 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import styles from './TableRow.module.scss';
 import {EditableTableCell} from '../EditableTableCell/EditableTableCell';
+import {ROW_HEIGHT} from '../../constants';
 
 type TableRowPropsType = {
   checked: boolean
@@ -31,7 +32,7 @@ export const TableRow = ({
 
   const tableRowStyles = `${styles.tableRow} ${checked ? styles.active : ''}`
 
-  return <div className={tableRowStyles}>
+  return <div className={tableRowStyles} style={{height: ROW_HEIGHT - 1}}>
     <div className={styles.checkboxTableCell}><input type={'checkbox'} checked={checked} onChange={onChangeHandler}/>
     </div>
     <div className={styles.secondTableCell}>

@@ -39,9 +39,8 @@ export const employeesAPI = {
     });
   },
   updateEmployee: async (param: RequestUpdateEmployeeType) => {
-    const employee = employeesData[param.parentId].find(el => el.id === param.id) as ResponseEmployeeType
-    return await new Promise<ResponseCompanyEmployeeType>((resolve) => {
-      setTimeout(() => resolve({...employee, ...param}), randomRequestTime(2000));
+    return await new Promise<string>((resolve) => {
+      setTimeout(() => resolve('Code 200'), randomRequestTime(2000));
     });
   },
   createEmployee: async (param: RequestCreateEmployeeType) => {

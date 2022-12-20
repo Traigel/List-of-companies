@@ -2,4 +2,8 @@
 
 .tableBody {
   @include tableBody();
+
+  .title {
+    @include titleStyle();
+  }
 }

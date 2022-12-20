@@ -1,9 +1,10 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {
+  companiesAPI,
   employeesAPI,
-  RequestCreateEmployeeType,
+  RequestCreateEmployeeType, RequestUpdateCompanyType,
   RequestUpdateEmployeeType,
-  ResponseCompanyEmployeeType,
+  ResponseCompanyEmployeeType, ResponseCompanyType,
   ResponseEmployeeType
 } from '../../api';
 import {setAppStatus} from '../../app/app-reducer';
@@ -13,7 +14,7 @@ import {AppRootStateType} from '../../store/store';
 // Actions
 export const setEmployeesChecked = createAction<{ employeeId: string, checked: boolean }>('employees/setEmployeesChecked')
 
-export const setEmployeeAllChecked = createAction<{ checked: boolean }>('employees/setEmployeeAllChecked')
+export const setEmployeeAllChecked = createAction<{ checked: boolean, activeCompanyId: string[] }>('employees/setEmployeeAllChecked')
 
 // Thunks
 export const getEmployees = createAsyncThunk<{ companyId: string, employees: ResponseEmployeeType[] }, { companyId: string }>(
@@ -30,11 +31,12 @@ export const getEmployees = createAsyncThunk<{ companyId: string, employees: Res
     }
   })
 
-export const updateEmployees = createAsyncThunk<ResponseCompanyEmployeeType, RequestUpdateEmployeeType>(
-  'employees/updateEmployees', async (param, {dispatch, rejectWithValue}) => {
+export const updateEmployees = createAsyncThunk<RequestUpdateEmployeeType, RequestUpdateEmployeeType>(
+  'companies/updateCompany', async (param, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
-      return await employeesAPI.updateEmployee(param)
+      await employeesAPI.updateEmployee(param)
+      return {...param}
     } catch (err) {
       handleServerNetworkError(err, dispatch)
       return rejectWithValue(null)

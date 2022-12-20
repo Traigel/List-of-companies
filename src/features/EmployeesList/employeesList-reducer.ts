@@ -2,7 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 import {ResponseEmployeeType} from '../../api';
 import {
   createEmployee,
-  getEmployees, removeEmployees,
+  getEmployees,
+  removeEmployees,
   setEmployeeAllChecked,
   setEmployeesChecked,
   updateEmployees
@@ -38,7 +39,10 @@ const slice = createSlice({
           : state.activeEmployeesId.filter(el => el !== action.payload.employeeId)
       })
       .addCase(setEmployeeAllChecked, (state, action) => {
-        state.employees = state.employees.map(el => ({...el, checked: action.payload.checked}))
+        state.employees = state.employees.map(el => action.payload.activeCompanyId.includes(el.parentId) ? {
+          ...el,
+          checked: action.payload.checked
+        } : el)
         state.allChecked = action.payload.checked
         state.activeEmployeesId = action.payload.checked
           ? state.employees.reduce((acc: string[], cur: EmployeeType) => [...acc, cur.id], [])

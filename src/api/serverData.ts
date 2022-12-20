@@ -8,6 +8,7 @@ const companyId3 = v1()
 const companyId4 = v1()
 const companyId5 = v1()
 const companyId6 = v1()
+const companyId7 = v1()
 
 export const companiesData: ResponseCompanyType[] = [
   {
@@ -46,6 +47,12 @@ export const companiesData: ResponseCompanyType[] = [
     qtyEmployees: 35,
     address: 'ул. Програмиская 19'
   },
+  {
+    id: companyId7,
+    title: 'Большая',
+    qtyEmployees: 10000,
+    address: 'ул. Весёлая 49'
+  },
 ]
 
 // EmployeesData
@@ -77,6 +84,9 @@ export const employeesData: { [companyId: string]: ResponseEmployeeType[] } = {
     ...returnEmployeeObject(index, arrSurname, arrName, arrJobTitle)
   })),
   [companyId6]: Array(companiesData[5].qtyEmployees).fill(null).map((_, index) => ({
+    ...returnEmployeeObject(index, arrSurname, arrName, arrJobTitle)
+  })),
+  [companyId7]: Array(companiesData[6].qtyEmployees).fill(null).map((_, index) => ({
     ...returnEmployeeObject(index, arrSurname, arrName, arrJobTitle)
   }))
 }

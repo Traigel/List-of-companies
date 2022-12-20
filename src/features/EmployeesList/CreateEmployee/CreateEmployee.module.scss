@@ -3,7 +3,7 @@
 .createEmployee {
   @include tableBox($boxBg, $bgSecondColor);
   width: 70%;
-  height: 15%;
+  height: $boxCreateHeight;
   justify-content: space-around;
 
   .inputBox {

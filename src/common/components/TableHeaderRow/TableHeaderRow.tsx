@@ -1,5 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import styles from './TableHeaderRow.module.scss';
+import {ROW_HEIGHT} from '../../constants';
 
 type TableRowPropsType = {
   checked: boolean
@@ -22,7 +23,7 @@ export const TableHeaderRow = ({
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => onChange(e.currentTarget.checked)
 
-  return <div className={styles.tableHeaderRow}>
+  return <div className={styles.tableHeaderRow} style={{height: ROW_HEIGHT + 10}}>
     <div className={styles.checkboxTableCell}>
       <label>
         <input type={'checkbox'} checked={checked} onChange={onChangeHandler}/>{checkedLabel}

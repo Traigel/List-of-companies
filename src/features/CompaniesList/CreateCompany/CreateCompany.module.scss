@@ -3,7 +3,7 @@
 .createCompany {
   @include tableBox($boxBg, $bgSecondColor);
   width: 70%;
-  height: 10%;
+  height: $boxCreateHeight;
   justify-content: space-around;
 
   .inputBox {

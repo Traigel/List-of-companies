@@ -48,7 +48,6 @@ export const CreateEmployee = () => {
       setSurname('')
       setName('')
       setJobTitle('')
-      setSelect('')
     } else {
       dispatch(setAppError({message: 'Заполните все поля'}))
     }
