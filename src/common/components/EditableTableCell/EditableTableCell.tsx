@@ -1,8 +1,9 @@
-import {ChangeEvent, useState, KeyboardEvent} from "react"
+import {ChangeEvent, KeyboardEvent, useState} from "react"
 import {InputText} from '../InputText/InputText';
 import styles from './EditableTableCell.module.scss';
 import {useAppDispatch} from '../../hooks';
 import {setAppError} from '../../../app/app-reducer';
+import {SvgSelector} from '../SvgSelector';
 
 type EditableTableCellPropsType = {
   title: string
@@ -14,6 +15,7 @@ export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCell
   const dispatch = useAppDispatch()
 
   const [visibility, setVisibility] = useState<boolean>(false)
+  const [editing, setEditing] = useState<boolean>(false)
   const [titleValue, setTitleValue] = useState<string>(title)
   const [error, setError] = useState<boolean>(false)
 
@@ -41,6 +43,9 @@ export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCell
 
   const onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && offVisibilityHandler()
 
+  const handleMouseEnter = () => setEditing(true)
+  const handleMouseLeave = () => setEditing(false)
+
   const onVisibilityHandler = () => {
     if (disabled) {
       return
@@ -61,7 +66,13 @@ export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCell
         autoFocus
       />
       :
-      <span onDoubleClick={onVisibilityHandler}>{title}</span>
+      <span
+        onDoubleClick={onVisibilityHandler}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {title} {editing && <SvgSelector type={'pencil'}/>}
+      </span>
     }
 
   </div>

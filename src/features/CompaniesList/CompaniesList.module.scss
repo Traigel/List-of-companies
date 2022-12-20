@@ -5,6 +5,6 @@
 
   .table {
     @include tableBox($boxBg, $bgSecondColor);
-    width: 70%;
+    width: $BoxWidth;
   }
 }

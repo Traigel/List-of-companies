@@ -2,7 +2,7 @@
 
 .createEmployee {
   @include tableBox($boxBg, $bgSecondColor);
-  width: 70%;
+  width: $BoxWidth;
   height: $boxCreateHeight;
   justify-content: space-around;
 
