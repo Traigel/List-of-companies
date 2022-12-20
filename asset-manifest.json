@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/List-of-companies/static/css/main.5a3c0065.css",
+    "main.js": "/List-of-companies/static/js/main.bc7cdd61.js",
+    "static/js/787.e8f95d08.chunk.js": "/List-of-companies/static/js/787.e8f95d08.chunk.js",
+    "index.html": "/List-of-companies/index.html",
+    "main.5a3c0065.css.map": "/List-of-companies/static/css/main.5a3c0065.css.map",
+    "main.bc7cdd61.js.map": "/List-of-companies/static/js/main.bc7cdd61.js.map",
+    "787.e8f95d08.chunk.js.map": "/List-of-companies/static/js/787.e8f95d08.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5a3c0065.css",
+    "static/js/main.bc7cdd61.js"
+  ]
+}
