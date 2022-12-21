@@ -39,6 +39,7 @@ export const EditableTableCell = ({title, setTitle, disabled}: EditableTableCell
         dispatch(setAppError({message: 'Поле не может быть пустым'}))
       }
     }
+    setEditing(false)
   }
 
   const onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && offVisibilityHandler()
